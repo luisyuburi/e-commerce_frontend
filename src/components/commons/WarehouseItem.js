@@ -1,13 +1,12 @@
 import React from "react";
-import withContext from "../withContext";
 
 import { Link } from "react-router-dom";
 
 
 const WarehouseItem = props => {
   const { warehouse } = props;
-  console.log(warehouse);
   return (
+
     <div className=" column is-half">
       <div className="box">
         <div className="media">
@@ -28,32 +27,29 @@ const WarehouseItem = props => {
             {warehouse.location}{" "}
             <div className="is-clearfix">
 
-
+              <Link to={"/warehouses/" + warehouse.id} className="button  is-small is-outlined is-pulled-right button-mr">
+                Detalles
+              </Link>
 
               <Link to={"/update-warehouse/" + warehouse.id} className="button  is-small is-outlined is-pulled-right button-mr">
                 Editar
-                    </Link>
+              </Link>
               <button
                 className="button  is-small is-outlined is-pulled-right button-mr"
                 onClick={() =>
                   props.removeWarehouse(warehouse.id)
-                }>
+                }
+              >
                 Eliminar
               </button>
-
-
-
-
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   );
 
 };
 
 
-export default withContext(WarehouseItem);
+export default WarehouseItem;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withContext from "../withContext";
+import withContext from "../../../context/withContext";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withContext from "../withContext";
+import withContext from "../../../context/withContext";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
@@ -50,7 +50,6 @@ class AddWarehouse extends Component {
     const { name, location } = this.state;
     const { user } = this.props.context;
 
-    console.log();
 
     return !user ? (
       <Redirect to="/" />
@@ -100,6 +99,7 @@ class AddWarehouse extends Component {
                     className="button is-primary is-outlined is-pulled-right"
                     type="submit"
                     onClick={this.save}
+
                   >
                     Submit
                 </button>

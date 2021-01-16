@@ -1,8 +1,7 @@
 import React from "react";
-import axios from 'axios';
 
-import ProductItem from "./ProductItem";
-import withContext from "../withContext";
+import ProductItem from "../../commons/ProductItem";
+import withContext from "../../../context/withContext";
 
 const ProductList = props => {
   const { products, getProducts } = props.context;
@@ -17,6 +16,7 @@ const ProductList = props => {
 
   React.useEffect(() => {
     getProductsFc()
+    // eslint-disable-next-line
   }, [])
   return (
     <>
@@ -28,7 +28,7 @@ const ProductList = props => {
       <br />
       <div className="container">
         {status === 'loading' && (
-          <a className="button is-loading ">Loading</a>
+          <span className="button is-loading ">Loading</span>
         )}
         {status !== 'loading' && (
           <div className="column columns is-multiline">

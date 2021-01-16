@@ -1,10 +1,11 @@
 import React from "react";
-import withContext from "../withContext";
-import CartItem from "./CartItem";
+import withContext from "../../../context/withContext";
+import CartItem from "../../commons/CartItem";
 
 const Cart = props => {
   const { cart } = props.context;
   const cartKeys = Object.keys(cart || {});
+
   return (
     <>
       <div className="hero is-primary">

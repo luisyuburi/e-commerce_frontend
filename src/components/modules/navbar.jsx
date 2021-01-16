@@ -1,11 +1,22 @@
 import React from "react";
-import withContext from "./../../withContext";
+import withContext from "./../../context/withContext";
 
 import { Link } from "react-router-dom";
 
 
 const Navbar = (props) => {
     const context = props.context;
+
+    const getTotalItemInCart = () => {
+        let total = 0
+
+        Object.keys(context.cart).forEach((key) => {
+            total = total + context.cart[key].amount
+        })
+
+        return total
+    }
+
     return (
         <nav
             className="navbar container"
@@ -13,7 +24,9 @@ const Navbar = (props) => {
             aria-label="main navigation"
         >
             <div className="navbar-brand">
-                <b className="navbar-item is-size-5 ">Noise Store</b>
+                <Link to="/">
+                    <b className="navbar-item is-size-5 ">Noise Store</b>
+                </Link>
                 <label
                     role="button"
                     className="navbar-burger burger"
@@ -35,38 +48,30 @@ const Navbar = (props) => {
 
                 <Link to="/products" className="navbar-item">
                     Products
-          </Link>
+                </Link>
 
                 {context.user && (
-                    <Link to="#" className="navbar-item is-hoverable navbar-item-color">
+                    <span className="navbar-item is-hoverable navbar-item-color">
 
-                        <a>Administrar</a>
-                        <Link to="/myproducts" className="navbar-dropdown">
-                            <a className="navbar-item">
-                                Administrar Productos</a>
-
-                            <Link to="/add-product" className="navbar-item">
-                                Agregar producto
-                    </Link>
-
-                    <Link to="/add-warehouse" className="navbar-item">
-                                Agregar Bodega
-                    </Link>
-
+                        <span>Administrar</span>
+                        <div className="navbar-dropdown">
+                            <Link to="/myproducts" className="navbar-item">
+                                Productos
+                            </Link>
                             <Link to="/warehouses" className="navbar-item">
-                                Administrar Bodegas
-                    </Link>
-                        </Link>
-                    </Link>
+                                Bodegas
+                            </Link>
+                        </div>
+                    </span>
                 )}
 
                 <Link to="/cart" className="navbar-item">
                     Mi carrito
-            <span
+                    <span
                         className="tag is-primary"
                         style={{ marginLeft: "5px" }}
                     >
-                        {Object.keys(context.cart).length}
+                        {getTotalItemInCart()}
                     </span>
                 </Link>
                 {context.user === undefined && (
@@ -77,11 +82,11 @@ const Navbar = (props) => {
 
                         <Link to="/login" className="navbar-item">
                             Iniciar sesion
-            </Link>
+                        </Link>
 
                         <Link to="/register" className="navbar-item">
                             Register
-                </Link>
+                        </Link>
 
                     </React.Fragment>
                 )}

@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-import withContext from "../withContext";
+import withContext from "../../../context/withContext";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
-
-import ProductItemAdm from "./ProductItemadm";
-
-
-
-
-
 
 class UpdateProducts extends Component {
   id = this.props.match.params.id;
@@ -33,13 +26,11 @@ class UpdateProducts extends Component {
       status: null,
       product: productResponse.data.data
     })
-    console.log(productResponse);
   }
 
   save = async (e) => {
     e.preventDefault();
     const { name, price, stock, shortDesc, description } = this.state.product;
-    console.log(name, price);
     if (name && price) {
 
       await axios.patch(
@@ -55,7 +46,7 @@ class UpdateProducts extends Component {
           description,
           stock: stock || 0
         },
-        () => {}
+        () => { }
       );
       this.setState(
         { flash: { status: 'is-success', msg: 'Product updated successfully' } }
@@ -76,7 +67,7 @@ class UpdateProducts extends Component {
   }
 
   render() {
- 
+
 
     const { user } = this.props.context;
     return user === null ? (
@@ -91,7 +82,7 @@ class UpdateProducts extends Component {
           <br />
           <br />
           {this.state.status === "loading" && (
-            <a className="button is-loading ">Loading</a>
+            <span className="button is-loading ">Loading</span>
 
           )}
           {this.state.product && (

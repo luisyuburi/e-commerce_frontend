@@ -3,7 +3,6 @@ import React from "react";
 const CartItem = props => {
     const { cartItem, cartKey } = props;
 
-    const { product, amount } = cartItem;
     return (
         <div className=" column is-half">
             <div className="box">
@@ -12,17 +11,17 @@ const CartItem = props => {
                         <figure className="image is-64x64">
                             <img
                                 src="https://bulma.io/images/placeholders/128x128.png"
-                                alt={product.shortDesc}
+                                alt={cartItem.shortDesc}
                             />
                         </figure>
                     </div>
                     <div className="media-content">
                         <b style={{ textTransform: "capitalize" }}>
-                            {product.name}{" "}
-                            <span className="tag is-primary">${product.price}</span>
+                            {cartItem.name}{" "}
+                            <span className="tag is-primary">${cartItem.price}</span>
                         </b>
-                        <div>{product.shortDesc}</div>
-                        <small>{`${amount} in cart`}</small>
+                        <div>{cartItem.shortDesc}</div>
+                        <small>{`${cartItem.amount} in cart`}</small>
                     </div>
                     <div
                         className="media-right"

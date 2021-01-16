@@ -1,67 +1,60 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import withContext from "../withContext";
+import withContext from "../../../context/withContext";
 
-class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: undefined,
-      email: undefined,
-      password: undefined,
-      c_password: undefined,
+      email: "",
+      password: "",
+      status: null
     };
   }
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value, error: "" });
 
-  register = async (e) => {
+  login = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, c_password } = this.state;
-    if (!name || !email || !password) {
+    const { email, password } = this.state;
+
+    if (!email || !password) {
       return this.setState({ error: "Fill all fields!" });
     }
 
-    const registered = await this.props.context.Register(name, email, password, c_password)
+    this.setState({ status: "loading" })
 
-    if (!registered) {
-      this.setState({ error: "Ha ocurrido un error" });
+    const loggedIn = await this.props.context.login(email, password)
+
+    this.setState({ status: null })
+
+    if (!loggedIn) {
+      this.setState({ error: "Invalid Credentails" });
     }
   };
 
   render() {
-
     return !this.props.context.user ? (
       <>
         <div className="hero is-primary ">
           <div className="hero-body container">
-            <h4 className="title">Register</h4>
+            <h4 className="title">Iniciar sesion</h4>
           </div>
         </div>
         <br />
         <br />
-        <form onSubmit={this.register}>
+        <form onSubmit={this.login}>
           <div className="columns is-mobile is-centered">
             <div className="column is-one-third">
-            
-            <div className="field">
-                <label className="label">Nombre: </label>
-                <input
-                  className="input"
-                  type="name"
-                  name="name"
-                  onChange={this.handleChange}
-                />
-              </div>
-              
               <div className="field">
-                <label className="label">Email: </label>
+                <label name="email" className="label">Email: </label>
                 <input
                   className="input"
                   type="email"
                   name="email"
                   onChange={this.handleChange}
+                  disabled={this.state.status === "loading"}
                 />
               </div>
               <div className="field">
@@ -71,16 +64,8 @@ class Register extends Component {
                   type="password"
                   name="password"
                   onChange={this.handleChange}
-                />
-              </div>
+                  disabled={this.state.status === "loading"}
 
-              <div className="field">
-                <label className="label">Confirm Password: </label>
-                <input
-                  className="input"
-                  type="password"
-                  name="c_password"
-                  onChange={this.handleChange}
                 />
               </div>
               {this.state.error && (
@@ -89,8 +74,12 @@ class Register extends Component {
               <div className="field is-clearfix">
                 <button
                   className="button is-primary is-outlined is-pulled-right"
+                  disabled={this.state.status === "loading"}
+
                 >
-                  Submit
+                  {this.state.status === "loading" ? "Cargando..." :
+                    "Submit"}
+
                 </button>
               </div>
             </div>
@@ -103,4 +92,4 @@ class Register extends Component {
   }
 }
 
-export default withContext(Register);
+export default withContext(Login);

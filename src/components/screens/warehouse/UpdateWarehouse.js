@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withContext from "../withContext";
+import withContext from "../../../context/withContext";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
@@ -67,7 +67,6 @@ class UpdateWarehouse extends Component {
 
   render() {
 
-    console.log("status", this.state.status)
 
     const { user } = this.props.context;
     return user === null ? (
@@ -82,7 +81,7 @@ class UpdateWarehouse extends Component {
           <br />
           <br />
           {this.state.status === "loading" && (
-            <a className="button is-loading ">Loading</a>
+            <span className="button is-loading ">Loading</span>
 
           )}
           {this.state.warehouse && (

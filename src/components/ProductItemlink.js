@@ -1,8 +1,14 @@
 import React from "react";
+import withContext from "../withContext";
 
-const ProductItem = props => {
-  const { product } = props;
-  console.log("stock", product.stock);
+import { Link } from "react-router-dom";
+
+
+const ProductItemAdm = props => {
+  const { product} = props;
+
+
+
   return (
     <div className=" column is-half">
       <div className="box">
@@ -18,28 +24,29 @@ const ProductItem = props => {
           <div className="media-content">
             <b style={{ textTransform: "capitalize" }}>
               {product.name}{" "}
-              <span className="tag is-primary">$COP {product.price }</span>
+              <span className="tag is-primary">${product.price}</span>
             </b>
             <div>{product.shortDesc}</div>
             {product.stock > 0 ? (
               <small>{product.stock + " Available"}</small>
             ) : (
-              <small className="has-text-danger">Out Of Stock</small>
-            )}
+                <small className="has-text-danger">Out Of Stock</small>
+              )}
             <div className="is-clearfix">
-          
-              <button
-                className="button is-small is-outlined is-primary   is-pulled-right"
-                onClick={() =>
-                  props.addToCart({
-                    id: product.name,
-                    product,
-                    amount: 1
-                  })
-                }
-              >
-                Add to Cart
+
+
+
+              <Link to={"/update-products/" + product.id} className="button  is-small is-outlined is-pulled-right button-mr">
+                Editar
+                    </Link>
+                    <button
+                className="button  is-small is-outlined is-pulled-right button-mr"
+                onClick={() => 
+                  props.removeProducts(product.id)
+                }>
+                Eliminar
               </button>
+
 
             </div>
           </div>
@@ -49,4 +56,4 @@ const ProductItem = props => {
   );
 };
 
-export default ProductItem;
+export default withContext(ProductItemAdm);
