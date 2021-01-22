@@ -29,28 +29,27 @@ class WarehouseInfo extends Component {
     this.setState({
       status: null,
       warehouse: warehouseResponse.data.data
+    }, () => {
+      this.getProducts()
     })
 
-    this.getProducts()
 
   }
 
   getProducts = async () => {
     await this.props.context.getProducts()
     const allProducts = this.props.context.products
+    const warehouseProducts = this.state.warehouse.products
 
     let products = allProducts;
 
-    if (allProducts.length > 0 && this.state.warehouse.products.length > 0) {
-
+    if (allProducts.length > 0 && warehouseProducts.length > 0) {
       products = allProducts.filter((product) => {
-        return this.state.warehouse.products.forEach((warehouseproduct) => {
-          return product.id !== warehouseproduct.id
+        return !warehouseProducts.find((warehouseproduct) => {
+          return warehouseproduct.id === product.id
         })
       })
-
     }
-
 
     this.setState({ products })
   }
@@ -63,7 +62,6 @@ class WarehouseInfo extends Component {
 
     if (productDetach.status === 200) {
       await this.getWarehouse()
-      this.getProducts()
     }
   }
 
@@ -78,9 +76,8 @@ class WarehouseInfo extends Component {
     )
 
     if (warehouseAttachResponse.status === 200) {
-          this.setState({ attachLoading: null })
-          await this.getWarehouse()      
-          this.getProducts()
+      this.setState({ attachLoading: null })
+      await this.getWarehouse()
     }
   }
 
@@ -126,7 +123,7 @@ class WarehouseInfo extends Component {
               {this.state.showForm && (
                 <React.Fragment>
 
-                  <div className=" add-product">
+                  <div className=" add-product product-list-container">
                     {this.state.products && this.state.products.length > 0 && (
 
                       <form onSubmit={this.submit}>
@@ -149,6 +146,8 @@ class WarehouseInfo extends Component {
                     {(!this.state.products || this.state.products.length === 0) && (
                       <span>No hay productos para agregar</span>
                     )}
+
+
                   </div>
                 </React.Fragment>
               )}
