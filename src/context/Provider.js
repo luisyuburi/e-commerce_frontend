@@ -151,7 +151,7 @@ class Provider extends Component {
 
   login = async (email, password) => {
     const res = await axios
-      .post('https://vast-reef-79531.herokuapp.com//api/login', {
+      .post('https://vast-reef-79531.herokuapp.com/api/login', {
         email,
         password,
       })
