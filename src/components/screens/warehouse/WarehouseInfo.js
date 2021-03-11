@@ -24,7 +24,7 @@ class WarehouseInfo extends Component {
   getWarehouse = async () => {
     this.setState({ status: "loading" })
     const warehouseResponse = await axios.get(
-      'http://localhost:8000/api/warehouses/' + this.id
+      'https://vast-reef-79531.herokuapp.com//api/warehouses/' + this.id
     )
     this.setState({
       status: null,
@@ -56,7 +56,7 @@ class WarehouseInfo extends Component {
 
   detach = async (product) => {
     const productDetach = await axios.post(
-      'http://localhost:8000/api/warehouses/detach',
+      'https://vast-reef-79531.herokuapp.com//api/warehouses/detach',
       { warehouseid: this.id, productid: product.id }
     )
 
@@ -71,7 +71,7 @@ class WarehouseInfo extends Component {
     let productid = e.target.elements["productid"].value
 
     const warehouseAttachResponse = await axios.post(
-      'http://localhost:8000/api/warehouses/attach',
+      'https://vast-reef-79531.herokuapp.com//api/warehouses/attach',
       { warehouseid: this.id, productid }
     )
 

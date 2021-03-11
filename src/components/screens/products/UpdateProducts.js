@@ -20,7 +20,7 @@ class UpdateProducts extends Component {
   getProduct = async () => {
     this.setState({ status: "loading" })
     const productResponse = await axios.get(
-      'http://localhost:8000/api/products/' + this.id
+      'https://vast-reef-79531.herokuapp.com//api/products/' + this.id
     )
     this.setState({
       status: null,
@@ -34,7 +34,7 @@ class UpdateProducts extends Component {
     if (name && price) {
 
       await axios.patch(
-        'http://localhost:8000/api/products/' + this.id,
+        'https://vast-reef-79531.herokuapp.com//api/products/' + this.id,
         { id: this.id, name, price, stock, shortDesc, description },
       )
 
