@@ -30,12 +30,12 @@ class Provider extends Component {
   }
 
   getWarehouses = async () => {
-    const warehouses = await axios.get('http://localhost:8000/api/warehouses');
+    const warehouses = await axios.get('https://vast-reef-79531.herokuapp.com//api/warehouses');
     this.setState({ warehouses: warehouses.data.data });
   }
 
   getProducts = async () => {
-    const products = await axios.get('http://127.0.0.1:8000/api/products');
+    const products = await axios.get('https://vast-reef-79531.herokuapp.com//api/products');
 
     this.setState({ products: products.data.data });
   }
@@ -47,7 +47,7 @@ class Provider extends Component {
     const bool = window.confirm("¿Seguro que dese eliminar el producto?");
     if (bool) {
 
-      const deleteResponse = await axios.delete('http://127.0.0.1:8000/api/products/' + id)
+      const deleteResponse = await axios.delete('https://vast-reef-79531.herokuapp.com//api/products/' + id)
 
       if (deleteResponse.status === 200) {
 
@@ -65,7 +65,7 @@ class Provider extends Component {
     var bool = window.confirm("¿Seguro que dese eliminar la Bodega?");
     if (bool) {
 
-      const deleteResponse = await axios.delete('http://127.0.0.1:8000/api/warehouses/' + id)
+      const deleteResponse = await axios.delete('https://vast-reef-79531.herokuapp.com//api/warehouses/' + id)
 
       if (deleteResponse.status === 200) {
 
@@ -126,7 +126,7 @@ class Provider extends Component {
 
   Register = async (name, email, password, c_password) => {
     const res = await axios.post(
-      'http://localhost:8000/api/register',
+      'https://vast-reef-79531.herokuapp.com//api/register',
       { name, email, password, c_password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
@@ -142,7 +142,7 @@ class Provider extends Component {
 
   login = async (email, password) => {
     const res = await axios.post(
-      'http://127.0.0.1:8000/api/login',
+      'https://vast-reef-79531.herokuapp.com//api/login',
       { email, password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
